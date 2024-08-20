@@ -1,5 +1,6 @@
 import unittest
 from main import add, subtract, multiply, divide, check, divide2
+from AT01dz import calculate_remainder
 
 
 class TestMath(unittest.TestCase):
@@ -47,6 +48,30 @@ class TestDivide(unittest.TestCase):
         self.assertRaises(ValueError, divide2, 6, 0)
         self.assertRaises(TypeError, divide, 6, 0) # В этом случае при запуске кода будет выдаваться ошибка, так как тестирование прописано именно на выброс ошибки ValueError
 
+
+class TestCalculateRemainder(unittest.TestCase):
+
+    def test_positive_numbers(self):
+        self.assertEqual(calculate_remainder(10, 3), 1)
+
+    def test_negative_dividend(self):
+        self.assertEqual(calculate_remainder(-10, 3), -1)
+
+    def test_negative_divisor(self):
+        self.assertEqual(calculate_remainder(10, -3), 1)
+
+    def test_both_negative(self):
+        self.assertEqual(calculate_remainder(-10, -3), -1)
+
+    def test_zero_dividend(self):
+        self.assertEqual(calculate_remainder(0, 3), 0)
+
+    def test_divisor_larger_than_dividend(self):
+        self.assertEqual(calculate_remainder(2, 3), 2)
+
+    def test_zero_divisor(self):
+        with self.assertRaises(ValueError):
+            calculate_remainder(10, 0)
 
 if __name__ == '__main__':
 	unittest.main()
